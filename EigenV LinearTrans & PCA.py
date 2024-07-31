@@ -160,11 +160,14 @@ for n in range(4):
 
 # What can you say about each of the principal components? 
 
-# <a name='2.4'></a>
-# ### 2.4 Transform the centered data with PCA
-# 
-# Now that you have the first 55 eigenvalue-eivenvector pairs, you can transform your data to reduce the dimensions. Remember that your data originally consisted of 4096 variables. Suppose you want to reduce that to just 2 dimensions, then all you need to do to perform the reduction with PCA is take the dot product between your centered data and the matrix $\boldsymbol{V}=\begin{bmatrix} v_1 & v_2 \end{bmatrix}$, whose columns are the first 2 eigenvectors, or principal components, associated to the 2 largest eigenvalues.
-# 
+###最后一步，对【中心化】Centered Dataset Array 使行 PCA
+#Transform the centered data with PCA
+# Now that you have the first 55 eigenvalue-eivenvector pairs, 
+# You can transform your data to reduce the dimensions. 
+# Remember that your data originally consisted of 4096 variables. 
+# Suppose you want to reduce that to just 2 dimensions, 
+# Then all you need to do to perform the reduction with PCA is take the dot product between your centered data and the matrix $\boldsymbol{V}=\begin{bmatrix} v_1 & v_2 \end{bmatrix}$, whose columns are the first 2 eigenvectors, or principal components, associated to the 2 largest eigenvalues.
+
 # <a name='ex03'></a>
 # ### Exercise 5
 # In the next cell you will define a function that, given the data matrix, the eigenvector matrix (always sorted according to decreasing eignevalues), and the number of principal components to use, performs PCA.
