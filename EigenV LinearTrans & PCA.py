@@ -79,32 +79,21 @@ def center_data(Y):
     
     X = Y - mean_matrix
     return X
+    
 这里的X就是中心化矩阵，Dataset Array的Centered Matrix，它应该和Dataset Array， Y 有一样的形状Shpae，正如Reshape Function做到的。
 #注意 axis=0或axis=1 对行，对列的参数设置。以及 X.shape[0 或 1]或者X.shape来得到矩阵X的行数，列数，和行列数的代数值。
 
 # Go ahead and apply the `center_data` function to your data in `imgs_flatten`. 
-# 
-# You can also print the image again and check that the face of the cat still looks the same. This is because the color scale is not fixed, but rather relative to the values of the pixels. 
-
-# In[286]:
-
+# You can also print the image again and check that the face of the cat still looks the same. 
+# This is because the color scale is not fixed, but rather relative to the values of the pixels. 
 
 X = center_data(imgs_flatten)
 plt.imshow(X[0].reshape(64,64), cmap='gray')
 
-
-# In[287]:
-
-
-# Test your solution.
-w4_unittest.test_center_data(center_data)
-
-
-# ### Exercise 4
-# 
-# Now that you have your centered data, $X$, you can go ahead and find the covariance matrix 
-# 
-# You might remember from the lectures that once you have your centered data, the covariance matrix can be found by appliying the dot product between $X^T$ and $X$, and divide by the number of observations minus 1.
+第二步：用【中心化】矩阵找到【Covariance Matrix】协方差矩阵
+# Now that you have your centered data, X, you can go ahead and find the covariance matrix 
+# You might remember from the lectures that once you have your centered data, 
+# The covariance matrix can be found by appliying the dot product between np.transpose(X) and X, and divide by the number of observations minus 1.
 # 
 # To perform the dot product you can simply use the function [`np.dot`](https://numpy.org/doc/stable/reference/generated/numpy.dot.html#numpy-dot).
 # 
