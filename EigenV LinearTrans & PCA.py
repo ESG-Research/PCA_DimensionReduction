@@ -122,16 +122,11 @@ print(f'Covariance matrix shape: {cov_matrix.shape}')
 # This function allows you to compute fewer number of eigenvalue-eigenvector pairs. 运算经济，适用于小型计算机
 
 # it can be shown that at most 55 eigenvalues of C will be different from zero, which is the smallest dimension of the data matrix X. 
-# Thus, for computational efficiency, you will only be computing the first biggest 55 eigenvalues $\lambda_1, \ldots, \lambda_{55}$ 
-# and their corresponding eigenvectors $v_1, \ldots, v_{55}$. 
-# Feel free to try changing the `k` parameter in `scipy.sparse.linalg.eigsh` to something slightly bigger, 
+# Thus, for computational efficiency, you will only be computing the first biggest 55 Eigenvalues
+# and their corresponding Eigenvectors
+# Feel free to try changing the 参数 “k” parameter in 公式 “scipy.sparse.linalg.eigsh” to something slightly bigger, 
 # to verify that all the new eigenvalues are zero. Try to keep it below 80, otherwise it will take too long to compute. 
-# 
 # The outputs of this scipy function are exactly the same as the ones from `np.linalg.eig`, except eigenvalues are ordered in decreasing order, so if you want to check out the largest eigenvalue you need to look into the last position of the vector. 
-# 
-
-# In[292]:
-
 
 scipy.random.seed(7)
 eigenvals, eigenvecs = scipy.sparse.linalg.eigsh(cov_matrix, k=55)
