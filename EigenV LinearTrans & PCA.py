@@ -91,15 +91,10 @@ X = center_data(imgs_flatten)
 plt.imshow(X[0].reshape(64,64), cmap='gray')
 
 第二步：用【中心化】矩阵找到【Covariance Matrix】协方差矩阵
+公式：C = （1/n-1）* (X转置 * X)   X是centered matrix
 # Now that you have your centered data, X, you can go ahead and find the covariance matrix 
-# You might remember from the lectures that once you have your centered data, 
 # The covariance matrix can be found by appliying the dot product between np.transpose(X) and X, and divide by the number of observations minus 1.
-# 
-# To perform the dot product you can simply use the function [`np.dot`](https://numpy.org/doc/stable/reference/generated/numpy.dot.html#numpy-dot).
-# 
-
-# In[288]:
-
+# To perform the dot product you can simply use the function np.dot()
 
 def get_cov_matrix(X):
     """ Calculate covariance matrix from centered data X
@@ -108,36 +103,14 @@ def get_cov_matrix(X):
     Outputs:
         cov_matrix (np.ndarray): covariance matrix
     """
-
-    ### START CODE HERE ###
     cov_matrix = np.dot(np.transpose(X),  X)
     cov_matrix = cov_matrix/(X.shape[0]-1)
     
-    ### END CODE HERE ###
-    
-    return cov_matrix
-    
-
-
-# In[289]:
-
+    return cov_matrix   
 
 cov_matrix = get_cov_matrix(X)
-
-
 # Check the dimensions of the covariance matrix, it should be a square matrix with 4096 rows and columns. 
-
-# In[290]:
-
-
 print(f'Covariance matrix shape: {cov_matrix.shape}')
-
-
-# In[291]:
-
-
-# Test your solution.
-w4_unittest.test_cov_matrix(get_cov_matrix)
 
 
 # <a name='2.3'></a>
