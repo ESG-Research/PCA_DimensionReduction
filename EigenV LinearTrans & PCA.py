@@ -18,6 +18,7 @@ import scipy.sparse.linalg
 
 
 #第一步：Load the data
+#Population是 ‘Cat and dog face’ dataset from Kaggle. 我们处理的Dataset是其中的 Cat Face。
 # Begin by loading the images and transforming them to black and white using `load_images` function from utils. 
 imgs = utils.load_images('./data/')
 
