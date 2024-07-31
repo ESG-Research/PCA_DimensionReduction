@@ -190,26 +190,13 @@ def perform_PCA(X, eigenvecs, k):
     
     return Xred
   
-
-
+PCA实践：
 # Try out this function, reducing your data to just two components
-
-# In[338]:
-
-
 Xred2 = perform_PCA(X, eigenvecs,2)
 print(f'Xred2 shape: {Xred2.shape}')
 
 
-# In[339]:
-
-
-# Test your solution.
-w4_unittest.test_check_PCA(perform_PCA)
-
-
-# <a name='2.5'></a>
-# ### 2.5 Analyzing the dimensionality reduction in 2 dimensions
+# Analyzing the dimensionality reduction in 2 dimensions
 # 
 # One cool thing about reducing your data to just two components is that you can clearly visualize each cat image on the plane. Remember that each axis on this new plane represents a linear combination of the original variables, given by the direction of the two eigenvectors.
 # 
