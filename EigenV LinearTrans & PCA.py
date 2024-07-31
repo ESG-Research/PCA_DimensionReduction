@@ -92,6 +92,8 @@ plt.imshow(X[0].reshape(64,64), cmap='gray')
 
 第二步：用【中心化】矩阵找到【Covariance Matrix】协方差矩阵
 公式：C = （1/n-1）* (X转置 * X)   X是centered matrix
+点乘  np.dot(X1 ,X2 )
+转置  np.transpose(X)
 # Now that you have your centered data, X, you can go ahead and find the covariance matrix 
 # The covariance matrix can be found by appliying the dot product between np.transpose(X) and X, and divide by the number of observations minus 1.
 # To perform the dot product you can simply use the function np.dot()
@@ -110,7 +112,8 @@ def get_cov_matrix(X):
 
 cov_matrix = get_cov_matrix(X)
 # Check the dimensions of the covariance matrix, it should be a square matrix with 4096 rows and columns. 
-print(f'Covariance matrix shape: {cov_matrix.shape}')
+print(f'Covariance matrix shape: {cov_matrix.shape}') 
+结果：4096 x 4096
 
 
 # <a name='2.3'></a>
