@@ -17,7 +17,8 @@ import scipy.sparse.linalg
 #and transform the original data by projecting it onto the direction of these principal components (eigenvectors).
 
 
-#第一步：Load the data
+###第一步：Load the data导入和【逆可视化】图像进入一个 Dataset Array，便于进行后续操作（PCA）。
+
 #Population是 ‘Cat and dog face’ dataset from Kaggle. 我们处理的Dataset是其中的 Cat Face。
 # Begin by loading the images and transforming them to black and white using `load_images` function from utils. 
 imgs = utils.load_images('./data/')
