@@ -24,7 +24,7 @@ imgs = utils.load_images('./data/')
 
 # imgs 就是图像的dataset，每个观测点就是一张图像(猫头)，这里每个图像就是一个矩阵Matrix，矩阵的每个element就是一个pixel像素点。
 
-#如下代码操作，可以查看这里共有几张图象，
+#如下代码操作，可以查看这里共有几张图象，每张图片是 n x n的矩阵 (什么样的矩阵形状Shape)。
 
 height, width = imgs[0].shape
 print(f'\nYour dataset has {len(imgs)} images of size {height}x{width} pixels\n')
@@ -36,13 +36,11 @@ print(f'\nYour dataset has {len(imgs)} images of size {height}x{width} pixels\n'
 plt.imshow(imgs[0], cmap='gray')
 
 
-# When working with images, you can consider each pixel as a variable. 
+# When working with images, you can consider each pixel as a variable. 每个图片是 64 x 64Matrix 意味着总共64个变量。
 # Having each image in matrix form is good for visualizing the image, but not so much for operating on each variable. 
 # In order to apply PCA for dimensionality reduction 
 # You will need to flatten each image into a single row vector. You can do this using the `reshape` function from NumPy. 
 # The resulting array will have 55 rows, one for each image, and 64x64=4096 columns.
-
-# In[245]:
 
 
 imgs_flatten = np.array([im.reshape(-1) for im in imgs])
