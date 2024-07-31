@@ -43,11 +43,10 @@ for t in range(m):
 print(X)
 # It is useful to predict the probabilities in Xm when m is large, and thus determine what pages a browser is more likely to visit after a long period of browsing the web. In other words, we want to know which pages ultimately get the most traffic. One way to do that is just apply the transformation many times, and with this small $5 \times 5$ example you can do that just fine. In real life problems, however, you'll have enormous matrices and doing so will be computationally expensive. Here is where eigenvalues and eigenvectors can help here significantly reducing the amount of calculations. Let's see how!
 不断增加m，m=50, m=5000, m=50000, 最后出现 Xm+1 = Xm，系统进入稳态
+这种稳态，表示为: 有 Vn+1 = Vn, 有P * Vn = 1 * Vn+1，则 Vn或Vn+1为Eigenvector with Eigenvalue = 1。 即稳态的Vn是转化矩阵P的Eigenvector以Eigenvalue为1。
 
 
 # Begin by finding eigenvalues and eigenvectors for the previously defined matrix P：
-
-
 eigenvals, eigenvecs = np.linalg.eig(P)
 print(f'Eigenvalues of P:\n{eigenvals}\n\nEigenvectors of P\n{eigenvecs}')
 
@@ -56,8 +55,8 @@ print(f'Eigenvalues of P:\n{eigenvals}\n\nEigenvectors of P\n{eigenvecs}')
 # 
 # In general, a square matrix whose entries are all nonnegative, and the sum of the elements for each column is equal to $1$ is called a **Markov matrix**. Markov matrices have a handy property - they always have an eigenvalue equal to 1. As you learned in the lectures, in the case of transition matrices, the eigenvector associated with the eigenvalue $1$ will determine the state of the model in the long run , after evolving for a long period of time. 
 # 
-# You can easily verify that the matrix $P$ you defined earlier is in fact a Markov matrix. 
-# So, if $m$ is large enough, the equation $X_m=PX_{m-1}$ can be rewritten as $X_m=PX_{m-1}=1\times X_m$. This means that predicting probabilities at time $m$, when $m$ is large you can simply just look for an eigenvector corresponding to the eigenvalue $1$. 
+# You can easily verify that the matrix P you defined earlier is in fact a Markov matrix. 
+# So, if m is large enough, the equation Xm+1 =P @ Xm can be rewritten as Xm+1=P@Xm-1=1\times X_m$. This means that predicting probabilities at time $m$, when $m$ is large you can simply just look for an eigenvector corresponding to the eigenvalue $1$. 
 # 
 # So, let's extract the eigenvector associated to the eigenvalue $1$. 
 
