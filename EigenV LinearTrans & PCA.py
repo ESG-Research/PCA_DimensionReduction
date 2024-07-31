@@ -170,8 +170,10 @@ for n in range(4):
 # Centered Data array X dotproduct V = [V1 V2] whose columns are the first 2 eigenvectors, or principal components, associated to the 2 largest eigenvalues.
 X * [V1 V2 V3 ……] 其中Vi 是Eigenvalue排名前i的Eigenvector。
 
-# In the next cell you will define a function that, given the data matrix, 
-# the eigenvector matrix (always sorted according to decreasing eignevalues), and the number of principal components to use, performs PCA.
+# In the next cell you will define a function that, given the data matrix, X
+# the eigenvector matrix (always sorted according to decreasing eignevalues), V eigenvecs
+# and the number of principal components to use, K 几个主要成分
+
 def perform_PCA(X, eigenvecs, k):
     """
     Perform dimensionality reduction with PCA
@@ -183,13 +185,11 @@ def perform_PCA(X, eigenvecs, k):
     Returns:
         Xred
     """
-    
-    ### START CODE HERE ###
     V = eigenvecs[:,:k]
     Xred = np.dot(X, V)
-    ### END CODE HERE ###
+    
     return Xred
-    # grade-up-to-here
+  
 
 
 # Try out this function, reducing your data to just two components
