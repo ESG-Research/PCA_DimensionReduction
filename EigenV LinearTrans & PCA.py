@@ -24,23 +24,20 @@ imgs = utils.load_images('./data/')
 
 # imgs 就是图像的dataset，每个观测点就是一张图像(猫头)，这里每个图像就是一个矩阵Matrix，矩阵的每个element就是一个pixel像素点。
 
+#如下代码操作，可以查看这里每个图像都是 Matrix 55 x 55，即我们通常说的 “55像素”。
 height, width = imgs[0].shape
-
 print(f'\nYour dataset has {len(imgs)} images of size {height}x{width} pixels\n')
 
 
-# Go ahead and plot one image to see what they look like. You can use the colormap 'gray' to plot in black and white. Feel free to look into as many pictures as you want.
-
-# In[92]:
-
-
+# Go ahead and plot one image to see what they look like. You can use the colormap 'gray' to plot in black and white. 
+#改变其中imgs[]中的参数来查看dataset中的不同图像（矩阵）。
 plt.imshow(imgs[0], cmap='gray')
 
 
-# When working with images, you can consider each pixel as a variable. Having each image in matrix form is good for visualizing the image, but not so much for operating on each variable. 
-# 
-# In order to apply PCA for dimensionality reduction you will need to flatten each image into a single row vector. You can do this using the `reshape` function from NumPy. 
-# 
+# When working with images, you can consider each pixel as a variable. 
+# Having each image in matrix form is good for visualizing the image, but not so much for operating on each variable. 
+# In order to apply PCA for dimensionality reduction 
+# You will need to flatten each image into a single row vector. You can do this using the `reshape` function from NumPy. 
 # The resulting array will have 55 rows, one for each image, and 64x64=4096 columns.
 
 # In[245]:
