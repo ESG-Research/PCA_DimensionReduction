@@ -54,10 +54,9 @@ print(f'imgs_flatten shape: {imgs_flatten.shape}')
 
 ###第二步： 找到协方差矩阵 Get the covariance matrix：
 # Now that you have the images in the correct shape you are ready to apply PCA on the flattened dataset. 
-# If you consider each pixel (column) as a variable, and each image (rows) as an obervation you will have 55 observations of 4096 variables
-
+# If you consider each pixel (column) as a variable, and each image (rows) as an obervation you will have 55 observations of 4096 variable
+#数据集： 每个像素点（column）作为一个变量Xi，每张图片（row）作为一个观测点Oservation，该数据Array共有55个观测点，4096个变量。
 # In order to get the covariance matrix you first need to center the data by subtracting the mean for each variable (column). 
-# 
 # As you've seen in the lectures, the centered data matrix looks something like this:
 # 
 # $$X = \begin{bmatrix} (x_{1,1}- \mu_1) & (x_{1,2}- \mu_2) & \ldots & (x_{1,4096}- \mu_{4096})\\
