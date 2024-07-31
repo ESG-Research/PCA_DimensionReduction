@@ -57,11 +57,13 @@ print(f'imgs_flatten shape: {imgs_flatten.shape}')
 # If you consider each pixel (column) as a variable, and each image (rows) as an obervation you will have 55 observations of 4096 variable
 #数据集： 每个像素点（column）作为一个变量Xi，每张图片（row）作为一个观测点Oservation，该数据Array共有55个观测点，4096个变量。
 
-现在第一步是：【中心化】Xi - meanXi
+现在第一步是：【中心化】Xi - meanXi 找到 Dataset Array的中心化矩阵Centered Matrix。
 # In order to get the covariance matrix you first need to center the data by subtracting the mean for each variable (column). 
-# As you've seen in the lectures, the centered data matrix looks something like this:
+利用下面三大公式Functions做到这一点：
+np.mean: use this function to compute the mean of each variable, just remember to pass the correct axis argument.
+np.repeat: This will allow for you to repeat the values of each  𝜇𝑖
+np.reshape: Use this function to reshape the repeated values into a matrix of shape the same size as your input data. To get the correct matrix after the reshape, remember to use the parameter order='F'.
 
-# Graded cell
 def center_data(Y):
     """
     Center your original data
@@ -70,16 +72,14 @@ def center_data(Y):
     Outputs:
         X (ndarray): centered data
     """
-    ### START CODE HERE ###
     mean_vector = np.mean(Y, axis=0)
     mean_matrix = np.repeat(mean_vector,Y.shape[0],axis=0)
     # use np.reshape to reshape into a matrix with the same size as Y. Remember to use order='F'
     mean_matrix = np.reshape(mean_matrix,Y.shape,order='F')
     
     X = Y - mean_matrix
-    ### END CODE HERE ###
     return X
-    
+这里的X就是中心化矩阵
 
 
 # Go ahead and apply the `center_data` function to your data in `imgs_flatten`. 
