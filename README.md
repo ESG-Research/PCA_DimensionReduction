@@ -2,4 +2,5 @@ PCA_DimensionReduction对于图像分析极为有益处，而且它可以和ArcG
 
 ![1722432772782](https://github.com/user-attachments/assets/871c245c-763c-4f81-948d-82fc382148b0)
 
+比如基于上述信息，你可以进行聚类分析Cluster Analysis，图中相邻相聚点应该表现出类似的X与Y的特质Features。（X和Y各蕴含了原本全数据集的关键性eatures）
 
