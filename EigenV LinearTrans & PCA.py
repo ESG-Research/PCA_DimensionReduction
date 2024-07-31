@@ -166,16 +166,12 @@ for n in range(4):
 # You can transform your data to reduce the dimensions. 
 # Remember that your data originally consisted of 4096 variables. 
 # Suppose you want to reduce that to just 2 dimensions, 
-# Then all you need to do to perform the reduction with PCA is take the dot product between your centered data and the matrix $\boldsymbol{V}=\begin{bmatrix} v_1 & v_2 \end{bmatrix}$, whose columns are the first 2 eigenvectors, or principal components, associated to the 2 largest eigenvalues.
+# Then all you need to do to perform the reduction with PCA is take the 
+# Centered Data array X dotproduct V = [V1 V2] whose columns are the first 2 eigenvectors, or principal components, associated to the 2 largest eigenvalues.
+X * [V1 V2 V3 ……] 其中Vi 是Eigenvalue排名前i的Eigenvector。
 
-# <a name='ex03'></a>
-# ### Exercise 5
-# In the next cell you will define a function that, given the data matrix, the eigenvector matrix (always sorted according to decreasing eignevalues), and the number of principal components to use, performs PCA.
-
-# In[337]:
-
-
-# GRADED cell
+# In the next cell you will define a function that, given the data matrix, 
+# the eigenvector matrix (always sorted according to decreasing eignevalues), and the number of principal components to use, performs PCA.
 def perform_PCA(X, eigenvecs, k):
     """
     Perform dimensionality reduction with PCA
