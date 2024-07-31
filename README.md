@@ -1,0 +1,1 @@
+PCA_DimensionReduction对于图像分析极为有益处，而且它可以和ArcGIS结合，分析Vector-Based地理信息数据。其原理是将Vector-based图像数据使用PCA降维压缩到二维X，Y平面2-D XY Plane。因为PCA的算法原理因此每个（X，Y）都包含了原本高维数据集的主要features。
