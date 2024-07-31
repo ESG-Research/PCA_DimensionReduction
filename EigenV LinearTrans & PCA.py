@@ -132,17 +132,12 @@ scipy.random.seed(7)
 eigenvals, eigenvecs = scipy.sparse.linalg.eigsh(cov_matrix, k=55)
 print(f'Ten largest eigenvalues: \n{eigenvals[-10:]}')
 
-
-# The random seed is fixed in the code above to help ensure the same eigenvectors are calculated each time. This is because for each eigenvector, there are actually two possible outcomes with norm 1. They fall on the same line but point in opposite directions. An example of this would be the vectors 
-# 
-# $$\begin{bmatrix}0.25 \\0.25 \\ -0.25 \\ 0.25 \end{bmatrix} \text{and } \begin{bmatrix}-0.25 \\ -0.25 \\ 0.25 \\ -0.25 \end{bmatrix}.$$
-# 
+保持每次运算EigenVector方向的一致性：用scipy.random.seed(7)
+# The random seed is fixed in the code above to help ensure the same eigenvectors are calculated each time. 
+# This is because for each eigenvector, there are actually two possible outcomes with norm 1. They fall on the same line but point in opposite directions. 
 # Both possibilities are correct, but by fixing the seed you guarantee you will always get the same result. 
-# 
-# In order to get a consistent result with `np.linalg.eig`, you will invert the order of `eigenvals` and `eigenvecs`, so they are both ordered from largest to smallest eigenvalue.
-
-# In[293]:
-
+# In order to get a consistent result with 公式：“np.linalg.eig”, you will invert the order of `eigenvals` and `eigenvecs`
+# so they are both ordered from largest to smallest eigenvalue.
 
 eigenvals = eigenvals[::-1]
 eigenvecs = eigenvecs[:,::-1]
@@ -150,12 +145,11 @@ eigenvecs = eigenvecs[:,::-1]
 print(f'Ten largest eigenvalues: \n{eigenvals[:10]}')
 
 
-# Each of the eigenvectors you found will represent one principal component. The eigenvector associated with the largest eigenvalue will be the first principal component, the eigenvector associated with the second largest eigenvalue will be the second principal component, and so on. 
-# 
-# It is pretty interesting to see that each principal component usually extracts some relevant features, or patterns from each image. In the next cell you will be visualizing the first sixteen components
-
-# In[294]:
-
+# Each of the eigenvectors you found will represent one principal component. 
+# The eigenvector associated with the largest eigenvalue will be the first principal component, 
+# the eigenvector associated with the second largest eigenvalue will be the second principal component, and so on. 
+# It is pretty interesting to see that each principal component usually extracts some relevant features, or patterns from each image. 
+# In the next cell you will be visualizing the first sixteen components to see that：
 
 fig, ax = plt.subplots(4,4, figsize=(20,20))
 for n in range(4):
