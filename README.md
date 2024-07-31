@@ -8,6 +8,10 @@ PCA_DimensionReduction对于图像分析极为有益处，而且它可以和ArcG
 
 这可以用于Vector-based地理图像(遥感图像)的时间序列分析，也可以用于AI领域的图像识别
 把它推广起来，任何现象最终都可以归结于两个主要的‘力’，即任何复杂的factor变量模型都可以通过合理的PCA压缩为一个二维的X，Y平面模型，并加以分析。
-两个最高优先度的应用：1.Advocacy Colation Model 2.Multi-Attribute镶嵌BCA的Decision Making (MADM)Model用PCA和AHP Approach
+
+
+两个最高优先度的应用：
+1.Advocacy Coalition Model 
+2.Multi-Attribute镶嵌BCA的Decision Making (MADM)Model，PCA 和 AHP Approach(或其他算法)
 
 
