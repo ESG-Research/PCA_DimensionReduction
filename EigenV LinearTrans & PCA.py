@@ -56,26 +56,10 @@ print(f'imgs_flatten shape: {imgs_flatten.shape}')
 # Now that you have the images in the correct shape you are ready to apply PCA on the flattened dataset. 
 # If you consider each pixel (column) as a variable, and each image (rows) as an obervation you will have 55 observations of 4096 variable
 #数据集： 每个像素点（column）作为一个变量Xi，每张图片（row）作为一个观测点Oservation，该数据Array共有55个观测点，4096个变量。
+
+现在第一步是：【中心化】Xi - meanXi
 # In order to get the covariance matrix you first need to center the data by subtracting the mean for each variable (column). 
 # As you've seen in the lectures, the centered data matrix looks something like this:
-# 
-# $$X = \begin{bmatrix} (x_{1,1}- \mu_1) & (x_{1,2}- \mu_2) & \ldots & (x_{1,4096}- \mu_{4096})\\
-#                                            (x_{2,1}- \mu_1) & (x_{2,2}- \mu_2) & \ldots & (x_{2,4096}- \mu_{4096}) \\
-#                                            \vdots & \vdots & \ddots & \vdots \\
-#                                            (x_{55,1}- \mu_1) & (x_{55,2}- \mu_2) & \ldots & (x_{55,4096}- \mu_{4096})\end{bmatrix}$$
-# 
-# From the lectures you know that, for example, the mean of the first variable (pixel) can be found as the mean of all the observations: $\mu_1 = \frac{1}{55} \sum_{i=1}^{55} x_{i,1}$.
-# 
-# 
-# For the following exercise you will implement a function that takes an array of shape $\mathrm{Num. observations}\times\mathrm{Num. variables}$, and returns the centered data. 
-# 
-# To perform the centering you will need three numpy functions. Click on their names if you want to read the official documentation for each in more detail:
-# - [`np.mean`](https://numpy.org/doc/stable/reference/generated/numpy.mean.html): use this function to compute the mean of each variable, just remember to pass the correct `axis` argument.
-# - [`np.repeat`](https://numpy.org/doc/stable/reference/generated/numpy.repeat.html#numpy-repeat): This will allow for you to repeat the values of each $\mu_i$ . 
-# - [`np.reshape`](https://numpy.org/doc/stable/reference/generated/numpy.reshape.html#numpy-reshape): Use this function to reshape the repeated values into a matrix of shape the same size as your input data. To get the correct matrix after the reshape, remember to use the parameter `order='F'`.
-
-# In[285]:
-
 
 # Graded cell
 def center_data(Y):
