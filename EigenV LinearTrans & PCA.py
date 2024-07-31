@@ -1,8 +1,6 @@
 
 
-
-
-# ## 2 - Application of Eigenvalues and Eigenvectors: Principal Component Analysis
+###Application of Eigenvalues and Eigenvectors: Principal Component Analysis (PCA)
 # Packages：
 import numpy as np
 import matplotlib.pyplot as plt
@@ -116,10 +114,12 @@ print(f'Covariance matrix shape: {cov_matrix.shape}')
 结果：4096 x 4096
 
 
-# <a name='2.3'></a>
-# ### 2.3 - Compute the eigenvalues and eigenvectors
+###第三步：计算协方差矩阵C的Eigenvalues和Eigenvectors。Compute the eigenvalues and eigenvectors：
+
 # Now you are all set to compute the eigenvalues and eigenvectors of the covariance matrix.
-# Due to performance constaints, you will not be using `np.linalg.eig`, but rather the very similar function [`scipy.sparse.linalg.eigsh`](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.eigsh.html), which exploits the fact that $\mathrm{cov\_matrix}^T=\mathrm{cov\_matrix}$. Also, this function allows you to compute fewer number of eigenvalue-eigenvector pairs. 
+# Due to performance constaints, you will not be using 公式： np.linalg.eig 
+# But rather the very similar function 公式： scipy.sparse.linalg.eigsh
+# This function allows you to compute fewer number of eigenvalue-eigenvector pairs. 运算经济，适用于小型计算机
 # 
 # It is outside of the scope of this course, but it can be shown that at most 55 eigenvalues of `cov_matrix` will be different from zero, which is the smallest dimension of the data matrix `X`. Thus, for computational efficiency, you will only be computing the first biggest 55 eigenvalues $\lambda_1, \ldots, \lambda_{55}$ and their corresponding eigenvectors $v_1, \ldots, v_{55}$. Feel free to try changing the `k` parameter in `scipy.sparse.linalg.eigsh` to something slightly bigger, to verify that all the new eigenvalues are zero. Try to keep it below 80, otherwise it will take too long to compute. 
 # 
