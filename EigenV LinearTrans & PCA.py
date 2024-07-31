@@ -22,8 +22,7 @@ import scipy.sparse.linalg
 # Begin by loading the images and transforming them to black and white using `load_images` function from utils. 
 imgs = utils.load_images('./data/')
 
-
-# `imgs` should be a list, where each element of the list is an array (matrix). Let's check it out
+# imgs 就是图像的dataset，每个观测点就是一张图像(猫头)，这里每个图像就是一个矩阵Matrix，矩阵的每个element就是一个pixel像素点。
 
 height, width = imgs[0].shape
 
