@@ -52,30 +52,10 @@ print(f'imgs_flatten shape: {imgs_flatten.shape}')
 
 
 
-
-# <a name='2.2'></a>
-# ## 2.2 - Get the covariance matrix
-# 
+###第二步： 找到协方差矩阵 Get the covariance matrix：
 # Now that you have the images in the correct shape you are ready to apply PCA on the flattened dataset. 
-# 
-# If you consider each pixel (column) as a variable, and each image (rows) as an obervation you will have 55 observations of 4096 variables, $X_1, X_2, \ldots, X_{4096}$ so that
-# $$\mathrm{imgs\_flatten} = \begin{bmatrix} x_{1,1} & x_{1,2} & \ldots & x_{1,4096}\\
-#                                            x_{2,1} & x_{2,2} & \ldots & x_{2,4096} \\
-#                                            \vdots & \vdots & \ddots & \vdots \\
-#                                            x_{55,1} & x_{55,2} & \ldots & x_{55,4096}\end{bmatrix}$$
-# 
-# 
-# As you might remember from the lectures, to compute PCA you first need to find the covariance matrix
-# 
-# 
-# $$\Sigma = \begin{bmatrix}Var(X_1) & Cov(X_1, X_2) & \ldots & Cov(X_1, X_{4096}) \\
-#                           Cov(X_1, X_2) & Var(X_2) & \ldots & Cov(X_2, X_{4096})\\
-#                           \vdots & \vdots & \ddots & \vdots \\
-#                           Cov(X_1,X_{4096}) & Cov(X_2, X_{4096}) &\ldots & Var(X_{4096})\end{bmatrix}$$
-# 
-# <a name='ex03'></a>
-# ### Exercise 3
-# 
+# If you consider each pixel (column) as a variable, and each image (rows) as an obervation you will have 55 observations of 4096 variables
+
 # In order to get the covariance matrix you first need to center the data by subtracting the mean for each variable (column). 
 # 
 # As you've seen in the lectures, the centered data matrix looks something like this:
