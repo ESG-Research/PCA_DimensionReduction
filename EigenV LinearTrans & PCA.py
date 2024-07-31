@@ -37,6 +37,7 @@ plt.imshow(imgs[0], cmap='gray')
 
 
 # When working with images, you can consider each pixel as a variable. 每个图片是 64 x 64Matrix 意味着总共64个变量。
+# 我们现在要操作这个含有64个变量Xi，和55个观测点的 Dataset。首先要把image变成一般的统计数据形式。
 # Having each image in matrix form is good for visualizing the image, but not so much for operating on each variable. 
 # In order to apply PCA for dimensionality reduction 
 # You will need to flatten each image into a single row vector. You can do this using the `reshape` function from NumPy. 
