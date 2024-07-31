@@ -24,10 +24,12 @@ imgs = utils.load_images('./data/')
 
 # imgs 就是图像的dataset，每个观测点就是一张图像(猫头)，这里每个图像就是一个矩阵Matrix，矩阵的每个element就是一个pixel像素点。
 
-#如下代码操作，可以查看这里每个图像都是 Matrix 55 x 55，即我们通常说的 “55像素”。
+#如下代码操作，可以查看这里共有几张图象，
+
 height, width = imgs[0].shape
 print(f'\nYour dataset has {len(imgs)} images of size {height}x{width} pixels\n')
-
+# 结果：Your dataset has 55 images of size 64x64 pixels
+#共有55张图片在这个dataset，每张图片都是 Matrix 64 x 64，即我们通常说的 “64像素”。
 
 # Go ahead and plot one image to see what they look like. You can use the colormap 'gray' to plot in black and white. 
 #改变其中imgs[]中的参数来查看dataset中的不同图像（矩阵）。
