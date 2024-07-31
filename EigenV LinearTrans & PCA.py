@@ -1,239 +1,28 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# #  Eigenvalues and Eigenvectors
-
-# Welcome to the last assignment of this course and congratulations for making it this far. In this final assignment you will use your knowledge of linear algebra and your skills using Python and NumPy to address some real-world scenarios where linear algebra is actually used to solve and simplify problems.
-# 
-# **After this assignment you will be able to:**
-# - apply linear transformations, eigenvalues and eigenvectors in a webpage navigation model
-# - apply PCA on a dataset to reduce its dimensions
-
-# # Table of Contents
-# - [ 1 - Application of Eigenvalues and Eigenvectors: Navigating Webpages](#1)
-#   - [ Exercise 1](#ex01)
-#   - [ Exercise 2](#ex02)
-# - [ 2 - Application of Eigenvalues and Eigenvectors: Principal Component Analysis](#2)
-#   - [2.1 Load the data](#2.1)
-#   - [2.2 Get the covariance matrix](#2.2)
-#     - [ Exercise 3](#ex03)
-#     - [ Exercise 4](#ex04)
-#   - [ 2.3 - Compute the eigenvalues and eigenvectors](#2.3)
-#   - [ 2.4 Transform the centered data with PCA](#2.4)
-#     - [ Exercise 5](#ex05)
-#   - [ 2.5 Analyzing the dimensionality reduction in 2 dimensions](#2.5)
-#   - [ 2.6 Reconstructing the images from the eigenvectors](#2.6)
-#   - [ 2.7 Explained variance](#2.7)
-
-# ## Packages
-# 
-# Run the following cell to load the packages you'll need.
-
-# In[324]:
 
 
+
+
+# ## 2 - Application of Eigenvalues and Eigenvectors: Principal Component Analysis
+# Packages：
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.sparse.linalg
 
-
-# Load the utils module and the unit tests defined for this notebook.
-
-# In[325]:
-
-
-import utils
-import w4_unittest
-
-
-# <a name='1'></a>
-# ## 1 - Application of Eigenvalues and Eigenvectors: Navigating Webpages
-# 
-# As you learned in the lectures, eigenvalues and eigenvectors play a very important role in what's called (discrete) dynamical systems. As you might recall, a **discrete dynamical system** describes a system where, as time goes by, the state changes according to some process. When defining this dynamical systems you could represent all the possible states, such as sunny, rainy or cloudy, in a vector called the **state vector**. 
-# 
-# Each discrete dynamical system can be represented by a transition matrix $P$, which indicates, given a particular state, what are the chances or probabilities of moving to each of the other states. This means the element $(2,1)$ of the matrix represents the probability of transitioning from state $1$ to state $2$.
-#  
-# Starting with an initial state $X_0$, the transition to the next state $X_1$ is a linear transformation defined by the transition matrix $P$: $X_1=PX_0$. That leads to $X_2=PX_1=P^2X_0$, $X_3=P^3X_0$, and so on. This implies that $X_t=PX_{t-1}$ for $t=0,1,2,3,\ldots$. In other words, we can keep multiplying by `P` to move from one state to the next.
-# 
-# One application of discrete dynamical systems is to model browsing web pages. Web pages often contain links to other pages, so the dynamical system would model how a user goes from one page to another by hopping from link to link. For simplicity, assume that the browser is only following links to a new page rather than navigating to an unlinked one. 
-# 
-# In this case, the state vector $X_t$ will be the probabilities that the browser is on a particular page at time $t$. Navigation from one page to another advances the model from one state vector $X_{t-1}$ to another state vector $X_t$. A linear transformation, defined by a matrix $P$, will have entries $p_{ij}$ with the probabilities that the browser navigates to page $j$ from page $i$. For fixed column $j$, the entries represent a probability distribution describing location of the browser at the next step, given that you are at state $j$. Thus, the entries in each column must add to 1.
-
-# <a name='ex01'></a>
-# ### Exercise 1
-# 
-# For the sake of the example, consider there are only a small number of pages $n=5$. This means that the transition matrix $P$ will be a $5 \times 5$ matrix. In this particular case, all elements on the main diagonal should be equal to $0$, since we are making the reasonable assumption that there is no existing link to the current page. Also, as metioned before, all the entries in each column must add to one. Here is an example of such a matrix for $n=5$:
-# 
-# $$P=
-# \begin{bmatrix}
-# 0    & 0.75 & 0.35 & 0.25 & 0.85 \\
-# 0.15 & 0    & 0.35 & 0.25 & 0.05 \\
-# 0.15 & 0.15 & 0    & 0.25 & 0.05 \\
-# 0.15 & 0.05 & 0.05 & 0    & 0.05 \\
-# 0.55 & 0.05 & 0.25 & 0.25 & 0
-# \end{bmatrix}\tag{5}
-# $$
-# 
-# Define vector $X_0$, so the browser starts navigation at page $4$ ($X_0$ is a vector with a single entry equal to one, and all other entries equal to zero). Apply the transformation once: $X_1=PX_0$ to find a vector of the probabilities that the browser is at each of four pages.
-
-# In[33]:
+算法，流程概述：
+#To apply PCA on any dataset 
+#you will begin by defining the covariance matrix. 
+#After that you will compute the eigenvalues and eigenvectors of this covariance matrix. 
+#Each of these eigenvectors will be a “principal component”. 
+#To perform the dimensionality reduction, you will take the k principal components associated to the k biggest eigenvalues, 
+#and transform the original data by projecting it onto the direction of these principal components (eigenvectors).
 
 
-P = np.array([ 
-    
-    [0, 0.75, 0.35, 0.25, 0.85], 
-    [0.15, 0, 0.35, 0.25, 0.05], 
-    [0.15, 0.15, 0, 0.25, 0.05], 
-    [0.15, 0.05, 0.05, 0, 0.05], 
-    [0.55, 0.05, 0.25, 0.25, 0]  
-]) 
-
-X0 = np.array([[0],[0],[0],[1],[0]])
-
-### START CODE HERE ###
-
-# Multiply matrix P and X_0 (matrix multiplication).
-X1 = P @ X0
-
-### END CODE HERE ###
-
-print(f'Sum of columns of P: {sum(P)}')
-print(f'X1:\n{X1}')
-
-
-# ##### __Expected Output__
-# 
-# ```Python
-# Sum of columns of P: [1. 1. 1. 1. 1.]
-# X1:
-# [[0.25]
-#  [0.25]
-#  [0.25]
-#  [0.  ]
-#  [0.25]]
-# ```
-
-# In[34]:
-
-
-# Test your solution.
-w4_unittest.test_matrix(P, X0, X1)
-
-
-# Applying the transformation $m$ times you can find a vector $X_m$ with the probabilities of the browser being at each of the pages after $m$ steps of navigation.
-
-# In[35]:
-
-
-X = np.array([[0],[0],[0],[1],[0]])
-m = 20
-
-for t in range(m):
-    X = P @ X
-    
-print(X)
-
-
-# It is useful to predict the probabilities in $X_m$ when $m$ is large, and thus determine what pages a browser is more likely to visit after a long period of browsing the web. In other words, we want to know which pages ultimately get the most traffic. One way to do that is just apply the transformation many times, and with this small $5 \times 5$ example you can do that just fine. In real life problems, however, you'll have enormous matrices and doing so will be computationally expensive. Here is where eigenvalues and eigenvectors can help here significantly reducing the amount of calculations. Let's see how!
-
-# Begin by finding eigenvalues and eigenvectors for the previously defined matrix $P$:
-
-# In[36]:
-
-
-eigenvals, eigenvecs = np.linalg.eig(P)
-print(f'Eigenvalues of P:\n{eigenvals}\n\nEigenvectors of P\n{eigenvecs}')
-
-
-# As you can see, there is one eigenvalue with value $1$, and the other four have an aboslute values smaller than 1. It turns out this is a property of transition matrices. In fact, they have so many properties that these types of matrices fall into a category of matrices called **Markov matrix**. 
-# 
-# In general, a square matrix whose entries are all nonnegative, and the sum of the elements for each column is equal to $1$ is called a **Markov matrix**. Markov matrices have a handy property - they always have an eigenvalue equal to 1. As you learned in the lectures, in the case of transition matrices, the eigenvector associated with the eigenvalue $1$ will determine the state of the model in the long run , after evolving for a long period of time. 
-# 
-# You can easily verify that the matrix $P$ you defined earlier is in fact a Markov matrix. 
-# So, if $m$ is large enough, the equation $X_m=PX_{m-1}$ can be rewritten as $X_m=PX_{m-1}=1\times X_m$. This means that predicting probabilities at time $m$, when $m$ is large you can simply just look for an eigenvector corresponding to the eigenvalue $1$. 
-# 
-# So, let's extract the eigenvector associated to the eigenvalue $1$. 
-
-# In[37]:
-
-
-X_inf = eigenvecs[:,0]
-
-print(f"Eigenvector corresponding to the eigenvalue 1:\n{X_inf[:,np.newaxis]}")
-
-
-# <a name='ex02'></a>
-# ### Exercise 2
-# 
-# Just to verify the results, perform matrix multiplication $PX$ (multiply matrix `P` and vector `X_inf`) to check that the result will be equal to the vector $X$ (`X_inf`).
-
-# In[38]:
-
-
-# This is organised as a function only for grading purposes.
-def check_eigenvector(P, X_inf):
-    ### START CODE HERE ###
-    X_check = P @ X_inf
-    ### END CODE HERE ###
-    return X_check
-
-X_check = check_eigenvector(P, X_inf)
-print("Original eigenvector corresponding to the eigenvalue 1:\n" + str(X_inf))
-print("Result of multiplication:" + str(X_check))
-
-# Function np.isclose compares two NumPy arrays element by element, allowing for error tolerance (rtol parameter).
-print("Check that PX=X element by element:" + str(np.isclose(X_inf, X_check, rtol=1e-10)))
-
-
-# In[39]:
-
-
-# Test your solution.
-w4_unittest.test_check_eigenvector(check_eigenvector)
-
-
-# This result gives the direction of the eigenvector, but as you can see the entries can't be interpreted as probabilities since you have negative values, and they don't add to 1. That's no problem. Remember that by convention `np.eig` returns eigenvectors with norm 1, but actually any vector on the same line is also an eigenvector to the eigenvalue 1, so you can simply scale the vector so that all entries are positive and add to one.This will give you the long-run probabilities of landing on a given web page.
-
-# In[40]:
-
-
-X_inf = X_inf/sum(X_inf)
-print(f"Long-run probabilities of being at each webpage:\n{X_inf[:,np.newaxis]}")
-
-
-# This means that after navigating the web for a long time, the probability that the browser is at page 1 is 0.394, of being on page 2 is 0.134, on page 3 0.114, on page 4 0.085, and finally page 5 has a probability of 0.273.
-# 
-# Looking at this result you can conclude that page 1 is the most likely for the browser to be at, while page 4 is the least probable one.
-# 
-# If you compare the result of `X_inf` with the one you got after evolving the systems 20 times, they are the same up to the third decimal!
-# 
-# Here is a fun fact: this type of a model was the foundation of the PageRank algorithm, which is the basis of Google's very successful search engine.
-
-# <a name='2'></a>
-# ## 2 - Application of Eigenvalues and Eigenvectors: Principal Component Analysis
-# 
-# As you learned in the lectures, one of the useful applications of eigenvalues and eigenvectors is the dimensionality reduction algorithm called Principal Component Analyisis, or PCA for short.
-# 
-# In this second section of the assignment you will be applying PCA on an image dataset to perform image compression. 
-# 
-# You will be using a portion of the [Cat and dog face](https://www.kaggle.com/datasets/alessiosanna/cat-dog-64x64-pixel/data) dataset from Kaggle. In particular, you will be using the cat images.
-# 
-# Remember that to apply PCA on any dataset you will begin by defining the covariance matrix. After that you will compute the eigenvalues and eigenvectors of this covariance matrix. Each of these eigenvectors will be a **principal component**. To perform the dimensionality reduction, you will take the $k$ principal components associated to the $k$ biggest eigenvalues, and transform the original data by projecting it onto the direction of these principal components (eigenvectors).
-# 
-# <a name='2.1'></a>
-# ### 2.1 - Load the data
+#第一步：Load the data
 # Begin by loading the images and transforming them to black and white using `load_images` function from utils. 
-
-# In[90]:
-
-
 imgs = utils.load_images('./data/')
 
 
 # `imgs` should be a list, where each element of the list is an array (matrix). Let's check it out
-
-# In[91]:
-
 
 height, width = imgs[0].shape
 
