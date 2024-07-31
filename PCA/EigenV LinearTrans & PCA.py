@@ -197,21 +197,16 @@ print(f'Xred2 shape: {Xred2.shape}')
 
 
 # Analyzing the dimensionality reduction in 2 dimensions
-# 
+
 # One cool thing about reducing your data to just two components is that you can clearly visualize each cat image on the plane. Remember that each axis on this new plane represents a linear combination of the original variables, given by the direction of the two eigenvectors.
-# 
+
 # Use the function `plot_reduced_data` in `utils`to visualize the transformed data. Each blue dot represents an image, and the number represents the index of the image. This is so you can later recover which image is which, and gain some intuition.
-
-# In[340]:
-
 
 utils.plot_reduced_data(Xred2)
 
-
 # If two points end up being close to each other in this representation, it is expected that the original pictures should be similar as well. 
-# Let's see if this is true. Consider for example the images 19, 21 and 41, which appear close to each other on the top center of the plot. Plot the corresponding cat images vertfy that they correspond to similar cats. 
-
-# In[341]:
+# Let's see if this is true. Consider for example the images 19, 21 and 41, which appear close to each other on the top center of the plot. 
+Plot the corresponding cat images vertfy that they correspond to similar cats. 
 
 
 fig, ax = plt.subplots(1,3, figsize=(15,5))
@@ -223,13 +218,8 @@ ax[2].imshow(imgs[41], cmap='gray')
 ax[2].set_title('Image 41')
 plt.suptitle('Similar cats')
 
-
 # As you can see, all three cats have white snouts and black fur around the eyes, making them pretty similar.
-# 
 # Now, let's choose three images that seem far appart from each other, for example image 18, on the middle right, 41 on the top center and 51 on the lower left, and also plot the images
-
-# In[342]:
-
 
 fig, ax = plt.subplots(1,3, figsize=(15,5))
 ax[0].imshow(imgs[18], cmap='gray')
@@ -242,38 +232,26 @@ plt.suptitle('Different cats')
 
 
 # In this case, all three cats look really different, one being completely black, another completely white, and the the third one a mix of both colors.
-# 
-# 
 # Feel free to choose different pairs of points and check how similar (or different) the pictures are. 
-# 
-# <a name='2.6'></a>
-# ### 2.6 Reconstructing the images from the eigenvectors
-# 
+
+最后利于逆矩阵，取消掉PCA对原Dataset的变化：
+#Reconstructing the images from the eigenvectors
 # When you compress the images using PCA, you are losing some information because you are using fewer variables to represent each observation. 
-# 
-# A natural question arises: how many components do you need to get a good reconstruction of the image? Of course, what determines a "good" reconstruction might depend on the application.
-# 
-# A cool thing is that with a simple dot product you can transform the data after applying PCA back to the original space. This means that you can reconstruct the original image from the transformed space and check how distorted it looks based on the number of components you kept.
-# 
-# Suppose you obtained the matrix $X_{red}$ by keeping just two eigenvectors, then $X_{red} = \mathrm{X}\underbrace{\left[v_1\  v_2\right]}_{\boldsymbol{V_2}}$.
-# 
-# To transform the images back to the original variables space all you need to do is take the dot product between $X_{red}$ and $\boldsymbol{V_2}^T$. If you were to keep more components, say $k$, then simply replace $\boldsymbol{V_2}$ by $\boldsymbol{V_k} = \left[v_1\ v_2\ \ldots\ v_k\right]$. Notice that you can't make any combination you like, if you reduced the original data to just $k$ components, then the recovery must consider only the first $k$ eigenvectors, otherwise you will not be able to perform the matrix multiplication.
-# 
+# A natural question arises: how many components do you need to get a good reconstruction of the image? 
+# Of course, what determines a "good" reconstruction might depend on the application.
+# A cool thing is that with a simple dot product you can transform the data after applying PCA back to the original space. 
+# This means that you can reconstruct the original image from the transformed space and check how distorted it looks based on the number of components you kept.
+# Suppose you obtained the matrix Xpca by keeping just two eigenvectors V1,V2,
+# To transform the images back to the original variables space all you need to do is take the dot product  
+            X = dot product Xpca and [V1 V2]
 # In the next cell you will define a function that given the transformed data $X_{red}$ and the matrix of eigenvectors returns the recovered image. 
-
-# In[343]:
-
 
 def reconstruct_image(Xred, eigenvecs):
     X_reconstructed = Xred.dot(eigenvecs[:,:Xred.shape[1]].T)
 
     return X_reconstructed
 
-
 # Let's see what the reconstructed image looks like for different number of principal components
-
-# In[344]:
-
 
 Xred1 = perform_PCA(X, eigenvecs,1) # reduce dimensions to 1 component
 Xred5 = perform_PCA(X, eigenvecs, 5) # reduce dimensions to 5 components
