@@ -50,8 +50,6 @@ print(X)
 eigenvals, eigenvecs = np.linalg.eig(P)
 print(f'Eigenvalues of P:\n{eigenvals}\n\nEigenvectors of P\n{eigenvecs}')
 
-
-# As you can see, there is one eigenvalue with value $1$, and the other four have an aboslute values smaller than 1. It turns out this is a property of transition matrices. In fact, they have so many properties that these types of matrices fall into a category of matrices called “Markov matrix”. 
 # In general, a square matrix whose entries are all nonnegative, and the sum of the elements for each column is equal to 1 is called a Markov matrix. 
 # Markov matrices have a handy property - they always have an eigenvalue equal to 1. 
 # You can easily verify that the matrix P you defined earlier is in fact a Markov matrix. 
@@ -78,20 +76,20 @@ print("Result of multiplication:" + str(X_check))
 # Function np.isclose compares two NumPy arrays element by element, allowing for error tolerance (rtol parameter).
 print("Check that PX=X element by element:" + str(np.isclose(X_inf, X_check, rtol=1e-10)))
 
-
-# This result gives the direction of the eigenvector, but as you can see the entries can't be interpreted as probabilities since you have negative values, and they don't add to 1. That's no problem. Remember that by convention `np.eig` returns eigenvectors with norm 1, but actually any vector on the same line is also an eigenvector to the eigenvalue 1, so you can simply scale the vector so that all entries are positive and add to one.This will give you the long-run probabilities of landing on a given web page.
-
-# In[40]:
+This result gives the direction of the eigenvector, but as you can see the entries can't be interpreted as probabilities 
+since you have negative values, and they don't add to 1. 
+That's no problem. Remember that 
+by convention np.eig returns eigenvectors with norm 1, but actually any vector on the same line is also an eigenvector to the eigenvalue 1, 
+so you can simply scale the vector so that all entries are positive and add to one。This will give you the long-run probabilities of landing on a given web page。
 
 
 X_inf = X_inf/sum(X_inf)
 print(f"Long-run probabilities of being at each webpage:\n{X_inf[:,np.newaxis]}")
 
-
-# This means that after navigating the web for a long time, the probability that the browser is at page 1 is 0.394, of being on page 2 is 0.134, on page 3 0.114, on page 4 0.085, and finally page 5 has a probability of 0.273.
-# 
+对最终稳态的翻译：
+# This means that after navigating the web for a long time, 
+the probability that the browser is at page 1 is 0.394, of being on page 2 is 0.134, on page 3 0.114, on page 4 0.085, and finally page 5 has a probability of 0.273.
 # Looking at this result you can conclude that page 1 is the most likely for the browser to be at, while page 4 is the least probable one.
-# 
 # If you compare the result of `X_inf` with the one you got after evolving the systems 20 times, they are the same up to the third decimal!
 # 
 # Here is a fun fact: this type of a model was the foundation of the PageRank algorithm, which is the basis of Google's very successful search engine.
