@@ -79,8 +79,8 @@ def center_data(Y):
     
     X = Y - mean_matrix
     return X
-这里的X就是中心化矩阵
-
+这里的X就是中心化矩阵，Dataset Array的Centered Matrix，它应该和Dataset Array， Y 有一样的形状Shpae，正如Reshape Function做到的。
+#注意 axis=0或axis=1 对行，对列的参数设置。以及 X.shape[0 或 1]或者X.shape来得到矩阵X的行数，列数，和行列数的代数值。
 
 # Go ahead and apply the `center_data` function to your data in `imgs_flatten`. 
 # 
