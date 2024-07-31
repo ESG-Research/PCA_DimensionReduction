@@ -47,7 +47,7 @@ imgs_flatten = np.array([im.reshape(-1) for im in imgs])
 print(f'imgs_flatten shape: {imgs_flatten.shape}')
 
 # The resulting array will have 55 rows, one for each image, and 64x64=4096 columns.
-
+#现在变成了一个 55 x 4096的大Array，作为我们的数据集 Dataset Array，方便我们施加操作，如PCA变换。
 
 
 
